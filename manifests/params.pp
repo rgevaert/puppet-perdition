@@ -2,13 +2,13 @@ class perdition::params
 {
   $mode = 'stand-alone'
 
-  $package        =  $::operatingsystem ?  {
+  $package        =  $::operatingsystem ? {
     /(?i:Debian|Ubuntu)/ => 'perdition',
     default              => fail("${::operatingsystem} not supported"),
   }
 
-  $package_ensure = installed
-  $service_ensure = running
+  $package_ensure = 'installed'
+  $service_ensure = 'running'
 
   $modules        = ''
 
@@ -17,12 +17,10 @@ class perdition::params
     default              => fail("${::operatingsystem} not supported"),
   }
 
-  $config_file = '/etc/perdition/perdition.conf'
+  $config_file        = '/etc/perdition/perdition.conf'
+  $config_file_source = 'puppet:///modules/perdition/perdition.conf'
 
-  $default_file_source = $mode ? {
-    'stand-alone' => 'puppet:///modules/perdition/default.daemon',
-    'inetd'       => 'puppet:///modules/perdition/default.xinetd'
-  }
+  $default_file_source_stand_alone  = 'puppet:///modules/perdition/default.daemon'
+  $default_file_source_xinetd       = 'puppet:///modules/perdition/default.xinetd'
 
-  $config_file_source  = 'puppet:///modules/perdition/perdition.conf'
 }
