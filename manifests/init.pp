@@ -35,6 +35,7 @@ class perdition (
   $default_file_source = $mode ? {
     'stand-alone' => $perdition::params::default_file_source_stand_alone,
     'xinetd'      => $perdition::params::default_file_source_xinetd,
+    default       => fail("unsuppored mode ${mode}"),
   }
 
 
